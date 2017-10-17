@@ -237,6 +237,7 @@ platform_check_image() {
 	dlan-hotspot|\
 	dlan-pro-1200-ac|\
 	dlan-pro-500-wp|\
+	dlb-5|\
 	dr531|\
 	dragino2|\
 	ebr-2310-c1|\
