@@ -883,6 +883,16 @@ config ATH79_MACH_JWAP230
 	select ATH79_DEV_USB
 	select ATH79_DEV_WMAC
 
+config ATH79_MACH_LIGODLB_5
+	bool "LigoDLB Propeller 5 support"
+	select SOC_AR934X
+	select ATH79_DEV_AP9X_PCI if PCI
+	select ATH79_DEV_ETH
+	select ATH79_DEV_GPIO_BUTTONS
+	select ATH79_DEV_LEDS_GPIO
+	select ATH79_DEV_M25P80
+	select ATH79_DEV_WMAC
+
 config ATH79_MACH_WRT160NL
 	bool "Linksys WRT160NL board support"
 	select SOC_AR913X
@@ -1401,6 +1411,15 @@ config ATH79_MACH_ARCHER_C7
 	select ATH79_DEV_M25P80
 	select ATH79_DEV_USB
 	select ATH79_DEV_WMAC
+
+config ATH79_MACH_CPE210_V2
+	bool "TP-LINK CPE210 V2 support"
+	select SOC_QCA953X
+	select ATH79_DEV_GPIO_BUTTONS
+	select ATH79_DEV_LEDS_GPIO
+	select ATH79_DEV_WMAC
+	select ATH79_DEV_ETH
+	select ATH79_DEV_M25P80
 
 config ATH79_MACH_CPE505N
 	bool "P&W CPE505N support"
