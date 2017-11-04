@@ -10,6 +10,7 @@
  *  - MikroTik RouterBOARD 750P-PBr2
  *  - MikroTik RouterBOARD 750 r2
  *  - MikroTik RouterBOARD LHG 5nD
+ *  - MikroTik RouterBOARD SXT 2nDr3
  *
  *  Preliminary support for the following hardware
  *  - MikroTik RouterBOARD wAP2nD
@@ -485,6 +486,59 @@ static struct gpio_keys_button rblhg_gpio_keys[] __initdata = {
 	},
 };
 
+/* RB SXT 2nDr3 gpios */
+#define RBSXT2nDr3_GPIO_LED_1		16
+#define RBSXT2nDr3_GPIO_LED_2		21
+#define RBSXT2nDr3_GPIO_LED_3		4
+#define RBSXT2nDr3_GPIO_LED_4		12
+#define RBSXT2nDr3_GPIO_LED_5		13
+#define RBSXT2nDr3_GPIO_LED_POWER	11
+#define RBSXT2nDr3_GPIO_LED_USER	3
+#define RBSXT2nDr3_GPIO_BTN_RESET	15
+
+static struct gpio_led rbsxt2ndr3_leds[] __initdata = {
+	{
+		.name = "rb:green:rssi1",
+		.gpio = RBSXT2nDr3_GPIO_LED_1,
+		.active_low = 1,
+	}, {
+		.name = "rb:green:rssi2",
+		.gpio = RBSXT2nDr3_GPIO_LED_2,
+		.active_low = 1,
+	}, {
+		.name = "rb:green:rssi3",
+		.gpio = RBSXT2nDr3_GPIO_LED_3,
+		.active_low = 1,
+	}, {
+		.name = "rb:green:rssi4",
+		.gpio = RBSXT2nDr3_GPIO_LED_4,
+		.active_low = 1,
+	}, {
+		.name = "rb:green:rssi5",
+		.gpio = RBSXT2nDr3_GPIO_LED_5,
+		.active_low = 1,
+	}, {
+		.name = "rb:green:power",
+		.gpio = RBSXT2nDr3_GPIO_LED_POWER,
+		.active_low = 1,
+	}, {
+		.name = "rb:green:user",
+		.gpio = RBSXT2nDr3_GPIO_LED_USER,
+		.active_low = 1,
+	},
+};
+
+static struct gpio_keys_button rbsxt2ndr3_gpio_keys[] __initdata = {
+	{
+		.desc = "Reset button",
+		.type = EV_KEY,
+		.code = KEY_RESTART,
+		.debounce_interval = RBSPI_KEYS_DEBOUNCE_INTERVAL,
+		.gpio = RBSXT2nDr3_GPIO_BTN_RESET,
+		.active_low = 1,
+	},
+};
+
 
 static struct gen_74x164_chip_platform_data rbspi_ssr_data = {
 	.base = RBSPI_SSR_GPIO_BASE,
@@ -940,6 +994,29 @@ static void __init rbmap_setup(void)
 	ath79_register_leds_gpio(-1, ARRAY_SIZE(rbmap_leds), rbmap_leds);
 }
 
+/*
+ * Init the SXT Lite 2 hardware.
+ * The SXT 2nDr3 has a single ethernet port.
+ */
+static void __init sxt2ndr3_setup(void)
+{
+	u32 flags = RBSPI_HAS_WLAN0 ;
+
+	if (rbspi_platform_setup())
+		return;
+
+	rbspi_peripherals_setup(flags);
+
+	/* GMAC1 is HW MAC, WLAN0 MAC is HW MAC + 1 */
+	rbspi_network_setup(flags, 0, 1, 0);
+
+	ath79_register_leds_gpio(-1, ARRAY_SIZE(rbsxt2ndr3_leds), rbsxt2ndr3_leds);
+
+	ath79_register_gpio_keys_polled(-1, RBSPI_KEYS_POLL_INTERVAL,
+					ARRAY_SIZE(rbsxt2ndr3_gpio_keys),
+					rbsxt2ndr3_gpio_keys);
+}
+
 
 MIPS_MACHINE_NONAME(ATH79_MACH_RB_MAPL, "map-hb", rbmapl_setup);
 MIPS_MACHINE_NONAME(ATH79_MACH_RB_941, "H951L", rbhapl_setup);
@@ -950,3 +1027,4 @@ MIPS_MACHINE_NONAME(ATH79_MACH_RB_LHG5, "lhg", rblhg_setup);
 MIPS_MACHINE_NONAME(ATH79_MACH_RB_WAP, "wap-hb", rbwap_setup);
 MIPS_MACHINE_NONAME(ATH79_MACH_RB_CAP, "cap-hb", rbcap_setup);
 MIPS_MACHINE_NONAME(ATH79_MACH_RB_MAP, "map2-hb", rbmap_setup);
+MIPS_MACHINE_NONAME(ATH79_MACH_RB_SXT2NDR3, "sxt2d", sxt2ndr3_setup);
