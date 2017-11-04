@@ -968,6 +968,9 @@ ar71xx_board_detect() {
 	*"RouterBOARD SXT Lite2")
 		name="rb-sxt2n"
 		;;
+	*"RouterBOARD SXT Lite2 nDr3")
+		name="rb-sxt-2ndr3"
+		;;
 	*"RouterBOARD SXT Lite5")
 		name="rb-sxt5n"
 		;;
