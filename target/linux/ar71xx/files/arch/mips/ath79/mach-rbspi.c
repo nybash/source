@@ -498,23 +498,23 @@ static struct gpio_keys_button rblhg_gpio_keys[] __initdata = {
 
 static struct gpio_led rbsxt2ndr3_leds[] __initdata = {
 	{
-		.name = "rb:green:rssi1",
+		.name = "rb:green:rssi0",
 		.gpio = RBSXT2nDr3_GPIO_LED_1,
 		.active_low = 1,
 	}, {
-		.name = "rb:green:rssi2",
+		.name = "rb:green:rssi1",
 		.gpio = RBSXT2nDr3_GPIO_LED_2,
 		.active_low = 1,
 	}, {
-		.name = "rb:green:rssi3",
+		.name = "rb:green:rssi2",
 		.gpio = RBSXT2nDr3_GPIO_LED_3,
 		.active_low = 1,
 	}, {
-		.name = "rb:green:rssi4",
+		.name = "rb:green:rssi3",
 		.gpio = RBSXT2nDr3_GPIO_LED_4,
 		.active_low = 1,
 	}, {
-		.name = "rb:green:rssi5",
+		.name = "rb:green:rssi4",
 		.gpio = RBSXT2nDr3_GPIO_LED_5,
 		.active_low = 1,
 	}, {
