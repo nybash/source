@@ -495,6 +495,7 @@ static struct gen_74x164_chip_platform_data rbspi_ssr_data = {
 static int rbspi_spi_cs_gpios[] = {
 	-ENOENT,	/* CS0 is always -ENOENT: natively handled */
 	-ENOENT,	/* CS1 can be updated by the code as necessary */
+	-ENOENT,	/* CS2 can be updated by the code as necessary */
 };
 
 static struct ath79_spi_platform_data rbspi_ath79_spi_data = {
@@ -519,6 +520,11 @@ static struct spi_board_info rbspi_spi_info[] = {
 		.max_speed_hz	= 25000000,
 		.modalias	= "74x164",
 		.platform_data	= &rbspi_ssr_data,
+	}, {
+		.bus_num	= 0,
+		.chip_select	= 2,
+		.max_speed_hz	= 25000000,
+		.modalias	= "rb700-spi-attiny",
 	}
 };
 
