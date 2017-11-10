@@ -932,11 +932,6 @@ static void __init rbmap_setup(void)
 	/* GMAC1 is HW MAC, WLAN0 MAC is HW MAC + 2 */
 	rbspi_network_setup(flags, 0, 2, 0);
 
-	if (flags & RBSPI_HAS_POE)
-		gpio_request_one(RBMAP_GPIO_POE_POWER,
-				GPIOF_OUT_INIT_HIGH | GPIOF_EXPORT_DIR_FIXED,
-				"POE power");
-
 	/* USB power GPIO is inverted, set GPIOF_ACTIVE_LOW for consistency */
 	if (flags & RBSPI_HAS_USB)
 		gpio_request_one(RBMAP_GPIO_USB_POWER,
